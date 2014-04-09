@@ -20,6 +20,10 @@
 		A89D8FE717CFFDCE0077F2B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A89D8FE617CFFDCE0077F2B5 /* Foundation.framework */; };
 		A89D8FEA17CFFDCE0077F2B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A89D8FE917CFFDCE0077F2B5 /* main.m */; };
 		A89D8FF617CFFED90077F2B5 /* AGCatalogParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A89D8FF517CFFED90077F2B5 /* AGCatalogParser.m */; };
+		AACB297918EF133800610A57 /* CGUCodeGenTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A885F8AD17DA8DE400A29164 /* CGUCodeGenTool.m */; };
+		AACB297C18EF133800610A57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A89D8FE617CFFDCE0077F2B5 /* Foundation.framework */; };
+		AACB298718EF140800610A57 /* CDCoreDataDumper.m in Sources */ = {isa = PBXBuildFile; fileRef = AACB298418EF140800610A57 /* CDCoreDataDumper.m */; };
+		AACB298818EF140800610A57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AACB298618EF140800610A57 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +46,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		A89D8FE117CFFDCE0077F2B5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		AACB297D18EF133800610A57 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -75,6 +88,12 @@
 		A89D8FEC17CFFDCE0077F2B5 /* assetgen-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "assetgen-Prefix.pch"; sourceTree = "<group>"; };
 		A89D8FF417CFFED90077F2B5 /* AGCatalogParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGCatalogParser.h; sourceTree = "<group>"; };
 		A89D8FF517CFFED90077F2B5 /* AGCatalogParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGCatalogParser.m; sourceTree = "<group>"; };
+		AACB295E18EF12D100610A57 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		AACB298118EF133800610A57 /* objc-coredataconstants */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "objc-coredataconstants"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AACB298318EF140800610A57 /* CDCoreDataDumper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDCoreDataDumper.h; sourceTree = "<group>"; };
+		AACB298418EF140800610A57 /* CDCoreDataDumper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDCoreDataDumper.m; sourceTree = "<group>"; };
+		AACB298518EF140800610A57 /* coredataconstants-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "coredataconstants-Prefix.pch"; sourceTree = "<group>"; };
+		AACB298618EF140800610A57 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +119,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A89D8FE717CFFDCE0077F2B5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AACB297B18EF133800610A57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AACB297C18EF133800610A57 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +185,7 @@
 			children = (
 				A89D8FE817CFFDCE0077F2B5 /* assetgen */,
 				A885F89D17DA8C7A00A29164 /* colordump */,
+				AACB298218EF140800610A57 /* coredataconstants */,
 				A838792118A04BF700B386D6 /* identifierconstants */,
 				A885F8A717DA8CBA00A29164 /* Shared */,
 				A89D8FE517CFFDCE0077F2B5 /* Frameworks */,
@@ -171,6 +199,7 @@
 				A89D8FE317CFFDCE0077F2B5 /* objc-assetgen */,
 				A885F89B17DA8C7A00A29164 /* objc-colordump */,
 				A838791F18A04BF700B386D6 /* objc-identifierconstants */,
+				AACB298118EF133800610A57 /* objc-coredataconstants */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,6 +212,7 @@
 				A83878DB18A0367C00B386D6 /* CoreGraphics.framework */,
 				A83878DD18A0367C00B386D6 /* UIKit.framework */,
 				A83878FB18A0367C00B386D6 /* XCTest.framework */,
+				AACB295E18EF12D100610A57 /* CoreFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -202,6 +232,25 @@
 			isa = PBXGroup;
 			children = (
 				A89D8FEC17CFFDCE0077F2B5 /* assetgen-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AACB298218EF140800610A57 /* coredataconstants */ = {
+			isa = PBXGroup;
+			children = (
+				AACB298318EF140800610A57 /* CDCoreDataDumper.h */,
+				AACB298418EF140800610A57 /* CDCoreDataDumper.m */,
+				AACB298518EF140800610A57 /* coredataconstants-Prefix.pch */,
+				AACB298918EF142100610A57 /* Supporting Files */,
+			);
+			path = coredataconstants;
+			sourceTree = "<group>";
+		};
+		AACB298918EF142100610A57 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AACB298618EF140800610A57 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -260,6 +309,23 @@
 			productReference = A89D8FE317CFFDCE0077F2B5 /* objc-assetgen */;
 			productType = "com.apple.product-type.tool";
 		};
+		AACB297618EF133800610A57 /* coredataconstants */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AACB297E18EF133800610A57 /* Build configuration list for PBXNativeTarget "coredataconstants" */;
+			buildPhases = (
+				AACB297718EF133800610A57 /* Sources */,
+				AACB297B18EF133800610A57 /* Frameworks */,
+				AACB297D18EF133800610A57 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = coredataconstants;
+			productName = identiferconstants;
+			productReference = AACB298118EF133800610A57 /* objc-coredataconstants */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -285,6 +351,7 @@
 				A89D8FE217CFFDCE0077F2B5 /* assetgen */,
 				A885F89A17DA8C7A00A29164 /* colordump */,
 				A838791E18A04BF700B386D6 /* identifierconstants */,
+				AACB297618EF133800610A57 /* coredataconstants */,
 			);
 		};
 /* End PBXProject section */
@@ -317,6 +384,16 @@
 				A89D8FF617CFFED90077F2B5 /* AGCatalogParser.m in Sources */,
 				A885F8AE17DA8DE400A29164 /* CGUCodeGenTool.m in Sources */,
 				A89D8FEA17CFFDCE0077F2B5 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AACB297718EF133800610A57 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AACB298818EF140800610A57 /* main.m in Sources */,
+				AACB298718EF140800610A57 /* CDCoreDataDumper.m in Sources */,
+				AACB297918EF133800610A57 /* CGUCodeGenTool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +534,30 @@
 			};
 			name = Release;
 		};
+		AACB297F18EF133800610A57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "coredataconstants/coredataconstants-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "objc-coredataconstants";
+			};
+			name = Debug;
+		};
+		AACB298018EF133800610A57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "coredataconstants/coredataconstants-Prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "objc-coredataconstants";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -492,6 +593,15 @@
 			buildConfigurations = (
 				A89D8FF217CFFDCE0077F2B5 /* Debug */,
 				A89D8FF317CFFDCE0077F2B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AACB297E18EF133800610A57 /* Build configuration list for PBXNativeTarget "coredataconstants" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AACB297F18EF133800610A57 /* Debug */,
+				AACB298018EF133800610A57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

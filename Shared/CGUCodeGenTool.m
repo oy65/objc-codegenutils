@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, CGUClassType) {
 @interface CGUCodeGenTool ()
 
 @property (copy) NSString *toolName;
+@property (strong) NSMutableDictionary *classesImported;
 
 @end
 
@@ -166,7 +167,9 @@ typedef NS_ENUM(NSInteger, CGUClassType) {
     }
 
     if (self.skipClassDeclaration) {
-        [interface appendString:[self.interfaceContents componentsJoinedByString:@""]];
+        if (self.interfaceContents) {
+            [interface appendString:[self.interfaceContents componentsJoinedByString:@""]];
+        }
     } else {
         [interface appendFormat:@"@interface %@ : NSObject\n\n%@\n@end\n", self.className, [self.interfaceContents componentsJoinedByString:@""]];
     }
@@ -183,7 +186,9 @@ typedef NS_ENUM(NSInteger, CGUClassType) {
     }
 
     if (self.skipClassDeclaration) {
-        [implementation appendString:[self.implementationContents componentsJoinedByString:@""]];
+        if (self.implementationContents) {
+            [implementation appendString:[self.implementationContents componentsJoinedByString:@""]];
+        }
     } else {
         [implementation appendFormat:@"@implementation %@\n\n%@\n@end\n", self.className, [self.implementationContents componentsJoinedByString:@"\n"]];
     }
@@ -208,6 +213,55 @@ typedef NS_ENUM(NSInteger, CGUClassType) {
     [mutableKey replaceOccurrencesOfString:@" " withString:@"" options:0 range:NSMakeRange(0, mutableKey.length)];
     [mutableKey replaceOccurrencesOfString:@"~" withString:@"" options:0 range:NSMakeRange(0, mutableKey.length)];
     return [mutableKey copy];
+}
+
+/// This method may be called multiple times with the same className without inquiring a search penalty each time.
+- (BOOL)importClass:(NSString *)className;
+{
+    /// Keys: NSString of class name; Values: @(BOOL) stating if it was successfully imported or not
+    if (!self.classesImported) {
+        self.classesImported = [NSMutableDictionary dictionary];
+    }
+    
+    if (self.classesImported[className]) {
+        // if we have arleady tried searching for this class, there is no need to search for it again
+        return [self.classesImported[className] boolValue];
+    }
+    
+    NSTask *findFiles = [NSTask new];
+    [findFiles setLaunchPath:@"/usr/bin/grep"];
+    [findFiles setCurrentDirectoryPath:self.searchPath];
+    [findFiles setArguments:[[NSString stringWithFormat:@"-r -l -e @interface[[:space:]]\\{1,\\}%@[[:space:]]*:[[:space:]]*[[:alpha:]]\\{1,\\} .", className] componentsSeparatedByString:@" "]];
+    
+    NSPipe *pipe = [NSPipe pipe];
+    [findFiles setStandardOutput:pipe];
+    NSFileHandle *file = [pipe fileHandleForReading];
+    
+    [findFiles launch];
+    [findFiles waitUntilExit];
+    
+    NSData *data = [file readDataToEndOfFile];
+    
+    NSString *string = [[NSString alloc] initWithData: data encoding:NSUTF8StringEncoding];
+    NSArray *lines = [string componentsSeparatedByString:@"\n"];
+    BOOL successfullyImported = NO;
+    for (NSString *line in lines) {
+        NSURL *path = [NSURL URLWithString:line];
+        NSString *importFile = [path lastPathComponent];
+        if ([importFile hasSuffix:@".h"]) {
+            @synchronized(self.interfaceImports) {
+                [self.interfaceImports addObject:[NSString stringWithFormat:@"\"%@\"", importFile]];
+            }
+            successfullyImported = YES;
+            break;
+        }
+    }
+    
+    if (!successfullyImported) {
+        NSLog(@"Unable to find class interface for '%@'. Reverting to global string constant behavior.", className);
+    }
+    self.classesImported[className] = @(successfullyImported);
+    return successfullyImported;
 }
 
 @end

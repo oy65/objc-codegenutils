@@ -10,7 +10,6 @@
 #import "IDStoryboardDumper.h"
 
 @interface IDStoryboardDumper ()
-@property (strong) NSMutableDictionary *classesImported;
 @end
 
 @implementation NSString (IDStoryboardAddition)
@@ -77,53 +76,6 @@
         NSString *defaultClass = [@"UI" stringByAppendingString:[element.name IDS_titlecaseString]];
         return defaultClass;
     }
-}
-
-/// You may call this method multiple times with the same className without it having to search the search path each time. It will only search once and cache the result.
-- (BOOL)importClass:(NSString *)className;
-{
-    /// Keys: NSString of class name; Values: @(BOOL) stating if it was successfully imported or not
-    if (!self.classesImported) {
-        self.classesImported = [NSMutableDictionary dictionary];
-    }
-    
-    if (self.classesImported[className]) {
-        // if we have arleady tried searching for this class, there is no need to search for it again
-        return [self.classesImported[className] boolValue];
-    }
-    
-    NSTask *findFiles = [NSTask new];
-    [findFiles setLaunchPath:@"/usr/bin/grep"];
-    [findFiles setCurrentDirectoryPath:self.searchPath];
-    [findFiles setArguments:[[NSString stringWithFormat:@"-r -l -e @interface[[:space:]]\\{1,\\}%@[[:space:]]*:[[:space:]]*[[:alpha:]]\\{1,\\} .", className] componentsSeparatedByString:@" "]];
-    
-    NSPipe *pipe = [NSPipe pipe];
-    [findFiles setStandardOutput:pipe];
-    NSFileHandle *file = [pipe fileHandleForReading];
-    
-    [findFiles launch];
-    [findFiles waitUntilExit];
-    
-    NSData *data = [file readDataToEndOfFile];
-    
-    NSString *string = [[NSString alloc] initWithData: data encoding:NSUTF8StringEncoding];
-    NSArray *lines = [string componentsSeparatedByString:@"\n"];
-    BOOL successfullyImported = NO;
-    for (NSString *line in lines) {
-        NSURL *path = [NSURL URLWithString:line];
-        NSString *importFile = [path lastPathComponent];
-        if ([importFile hasSuffix:@".h"]) {
-            [self.interfaceImports addObject:[NSString stringWithFormat:@"\"%@\"", importFile]];
-            successfullyImported = YES;
-            break;
-        }
-    }
-    
-    if (!successfullyImported) {
-        NSLog(@"Unable to find class interface for '%@'. Reverting to global string constant behavior.", className);
-    }
-    self.classesImported[className] = @(successfullyImported);
-    return successfullyImported;
 }
 
 - (void)startWithCompletionHandler:(dispatch_block_t)completionBlock;

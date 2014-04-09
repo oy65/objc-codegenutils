@@ -36,6 +36,8 @@
 
 - (NSString *)methodNameForKey:(NSString *)key;
 
+- (BOOL)importClass:(NSString *)className;
+
 @end
 
 

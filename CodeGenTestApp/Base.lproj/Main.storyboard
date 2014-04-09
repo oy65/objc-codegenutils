@@ -80,7 +80,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cK7-Bz-0X1">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Argentina" translatesAutoresizingMaskIntoConstraints="NO" id="cK7-Bz-0X1">
                                 <rect key="frame" x="0.0" y="1" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <gestureRecognizers/>
@@ -89,10 +89,9 @@
                                 </connections>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8d-Ff-nf5">
-                                <rect key="frame" x="58" y="493" width="205" height="39"/>
+                                <rect key="frame" x="58" y="458" width="205" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to view name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XA9-HU-Mx0">
@@ -102,16 +101,25 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Capital Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KG1-Mx-lIx">
+                                <rect key="frame" x="94" y="505" width="132" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="D8d-Ff-nf5" secondAttribute="centerX" id="6Ei-aD-kBS"/>
+                            <constraint firstItem="KG1-Mx-lIx" firstAttribute="centerX" secondItem="D8d-Ff-nf5" secondAttribute="centerX" constant="-0.5" id="9DC-aA-Fms"/>
                             <constraint firstItem="XA9-HU-Mx0" firstAttribute="top" secondItem="EK1-eN-tCq" secondAttribute="bottom" constant="20" id="IoW-zC-bSQ"/>
                             <constraint firstAttribute="centerX" secondItem="XA9-HU-Mx0" secondAttribute="centerX" id="Y6M-Ux-1qK"/>
-                            <constraint firstItem="wQM-DP-Tgk" firstAttribute="top" secondItem="D8d-Ff-nf5" secondAttribute="top" constant="75" id="pjb-U5-Ai8"/>
+                            <constraint firstItem="KG1-Mx-lIx" firstAttribute="top" secondItem="D8d-Ff-nf5" secondAttribute="bottom" constant="8" id="eRg-Hg-b9E"/>
+                            <constraint firstItem="wQM-DP-Tgk" firstAttribute="top" secondItem="D8d-Ff-nf5" secondAttribute="top" constant="110" id="pjb-U5-Ai8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Detail" id="cra-N8-TIN"/>
                     <connections>
+                        <outlet property="capitalNameLabel" destination="KG1-Mx-lIx" id="FsX-Iz-pNX"/>
                         <outlet property="countryNameLabel" destination="D8d-Ff-nf5" id="h5l-XS-5ac"/>
                         <outlet property="countryNameTopConstraint" destination="pjb-U5-Ai8" id="UrE-La-Oyg"/>
                         <outlet property="imageView" destination="cK7-Bz-0X1" id="dbA-f5-cQY"/>
@@ -151,6 +159,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Argentina" width="128" height="128"/>
         <image name="USA" width="128" height="128"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
