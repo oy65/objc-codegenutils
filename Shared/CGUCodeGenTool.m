@@ -20,7 +20,6 @@ typedef NS_ENUM(NSInteger, CGUClassType) {
 @interface CGUCodeGenTool ()
 
 @property (copy) NSString *toolName;
-@property (strong) NSMutableDictionary *classesImported;
 
 @end
 
@@ -47,10 +46,10 @@ typedef NS_ENUM(NSInteger, CGUClassType) {
 {
     char opt = -1;
     NSURL *searchURL = nil;
-    NSString *searchPath = nil;
     NSString *classPrefix = @"";
     BOOL target6 = NO;
     NSMutableArray *inputURLs = [NSMutableArray array];
+    NSMutableSet *headerFilesFound = [NSMutableSet set];
     
     while ((opt = getopt(argc, (char *const*)argv, "o:f:p:h6")) != -1) {
         switch (opt) {
@@ -75,7 +74,7 @@ typedef NS_ENUM(NSInteger, CGUClassType) {
             }
                 
             case 'f': {
-                searchPath = [[NSString alloc] initWithUTF8String:optarg];
+                NSString *searchPath = [[NSString alloc] initWithUTF8String:optarg];
                 searchPath = [searchPath stringByExpandingTildeInPath];
                 searchURL = [NSURL fileURLWithPath:searchPath];
                 break;
@@ -108,6 +107,10 @@ typedef NS_ENUM(NSInteger, CGUClassType) {
             if ([url.pathExtension isEqualToString:[self inputFileExtension]]) {
                 [inputURLs addObject:url];
             }
+            if ([url.pathExtension isEqualToString:@"h"]) {
+                NSString *fileName = [url lastPathComponent];
+                [headerFilesFound addObject:[fileName substringToIndex:[fileName length] - 2]];
+            }
         }
     }
     
@@ -118,7 +121,7 @@ typedef NS_ENUM(NSInteger, CGUClassType) {
         
         CGUCodeGenTool *target = [self new];
         target.inputURL = url;
-        target.searchPath = searchPath;
+        target.headerFilesFound = headerFilesFound;
         target.targetiOS6 = target6;
         target.classPrefix = classPrefix;
         target.toolName = [[NSString stringWithUTF8String:argv[0]] lastPathComponent];
@@ -213,55 +216,6 @@ typedef NS_ENUM(NSInteger, CGUClassType) {
     [mutableKey replaceOccurrencesOfString:@" " withString:@"" options:0 range:NSMakeRange(0, mutableKey.length)];
     [mutableKey replaceOccurrencesOfString:@"~" withString:@"" options:0 range:NSMakeRange(0, mutableKey.length)];
     return [mutableKey copy];
-}
-
-/// This method may be called multiple times with the same className without inquiring a search penalty each time.
-- (BOOL)importClass:(NSString *)className;
-{
-    /// Keys: NSString of class name; Values: @(BOOL) stating if it was successfully imported or not
-    if (!self.classesImported) {
-        self.classesImported = [NSMutableDictionary dictionary];
-    }
-    
-    if (self.classesImported[className]) {
-        // if we have arleady tried searching for this class, there is no need to search for it again
-        return [self.classesImported[className] boolValue];
-    }
-    
-    NSTask *findFiles = [NSTask new];
-    [findFiles setLaunchPath:@"/usr/bin/grep"];
-    [findFiles setCurrentDirectoryPath:self.searchPath];
-    [findFiles setArguments:[[NSString stringWithFormat:@"-r -l -e @interface[[:space:]]\\{1,\\}%@[[:space:]]*:[[:space:]]*[[:alpha:]]\\{1,\\} .", className] componentsSeparatedByString:@" "]];
-    
-    NSPipe *pipe = [NSPipe pipe];
-    [findFiles setStandardOutput:pipe];
-    NSFileHandle *file = [pipe fileHandleForReading];
-    
-    [findFiles launch];
-    [findFiles waitUntilExit];
-    
-    NSData *data = [file readDataToEndOfFile];
-    
-    NSString *string = [[NSString alloc] initWithData: data encoding:NSUTF8StringEncoding];
-    NSArray *lines = [string componentsSeparatedByString:@"\n"];
-    BOOL successfullyImported = NO;
-    for (NSString *line in lines) {
-        NSURL *path = [NSURL URLWithString:line];
-        NSString *importFile = [path lastPathComponent];
-        if ([importFile hasSuffix:@".h"]) {
-            @synchronized(self.interfaceImports) {
-                [self.interfaceImports addObject:[NSString stringWithFormat:@"\"%@\"", importFile]];
-            }
-            successfullyImported = YES;
-            break;
-        }
-    }
-    
-    if (!successfullyImported) {
-        NSLog(@"Unable to find class interface for '%@'. Reverting to global string constant behavior.", className);
-    }
-    self.classesImported[className] = @(successfullyImported);
-    return successfullyImported;
 }
 
 @end

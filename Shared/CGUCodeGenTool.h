@@ -18,7 +18,7 @@
 
 @property (copy) NSURL *inputURL;
 @property (copy) NSString *classPrefix;
-@property (copy) NSString *searchPath;
+@property (copy) NSSet *headerFilesFound;
 @property BOOL targetiOS6;
 @property BOOL skipClassDeclaration;
 
@@ -35,8 +35,6 @@
 - (void)writeOutputFiles;
 
 - (NSString *)methodNameForKey:(NSString *)key;
-
-- (BOOL)importClass:(NSString *)className;
 
 @end
 

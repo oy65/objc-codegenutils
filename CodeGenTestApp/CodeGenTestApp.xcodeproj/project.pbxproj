@@ -22,6 +22,7 @@
 		A881854218A9B622002803FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A83878E518A0367C00B386D6 /* main.m */; };
 		A881854418A9B663002803FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A83878EB18A0367C00B386D6 /* Main.storyboard */; };
 		AA24EC5A18EB4F8E00DB0F94 /* MoreExamples.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA24EC5918EB4F8E00DB0F94 /* MoreExamples.storyboard */; };
+		AA509EE318F85CA5000F4136 /* CGTAFlagCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA509EE218F85CA5000F4136 /* CGTAFlagCollectionViewCell.m */; };
 		AAA0E3BF18EF852F00EB400A /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA0E3BE18EF852F00EB400A /* Country.m */; };
 		AAA0E3C218EF857200EB400A /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAA0E3C018EF857200EB400A /* Main.xcdatamodeld */; };
 		AAA0E3C518EF98CA00EB400A /* CGTAMainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA0E3C418EF98CA00EB400A /* CGTAMainModel.m */; };
@@ -115,6 +116,9 @@
 		A881852718A9B520002803FC /* codegenutils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = codegenutils.xcodeproj; path = ../codegenutils.xcodeproj; sourceTree = "<group>"; };
 		A89D8FE617CFFDCE0077F2B5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AA24EC5918EB4F8E00DB0F94 /* MoreExamples.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MoreExamples.storyboard; sourceTree = "<group>"; };
+		AA34C0C61901CFBC001A5584 /* Main 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Main 2.xcdatamodel"; sourceTree = "<group>"; };
+		AA509EE118F85CA5000F4136 /* CGTAFlagCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGTAFlagCollectionViewCell.h; sourceTree = "<group>"; };
+		AA509EE218F85CA5000F4136 /* CGTAFlagCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGTAFlagCollectionViewCell.m; sourceTree = "<group>"; };
 		AAA0E3BD18EF852F00EB400A /* Country.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Country.h; sourceTree = "<group>"; };
 		AAA0E3BE18EF852F00EB400A /* Country.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Country.m; sourceTree = "<group>"; };
 		AAA0E3C118EF857200EB400A /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
@@ -151,6 +155,8 @@
 				A83878F118A0367C00B386D6 /* CGTADetailViewController.h */,
 				A83878F218A0367C00B386D6 /* CGTADetailViewController.m */,
 				AA31CEF518EF1DD600204631 /* Model */,
+				AA509EE118F85CA5000F4136 /* CGTAFlagCollectionViewCell.h */,
+				AA509EE218F85CA5000F4136 /* CGTAFlagCollectionViewCell.m */,
 				A838791718A0456500B386D6 /* Derived Sources */,
 				A83878E018A0367C00B386D6 /* Supporting Files */,
 			);
@@ -367,6 +373,7 @@
 				A881853C18A9B622002803FC /* CGTAMasterViewController.m in Sources */,
 				A881853F18A9B622002803FC /* CGTAMainStoryboardIdentifiers.m in Sources */,
 				A881854118A9B622002803FC /* CGTAImagesCatalog+RuntimeHackery.m in Sources */,
+				AA509EE318F85CA5000F4136 /* CGTAFlagCollectionViewCell.m in Sources */,
 				A881853E18A9B622002803FC /* CGTAImagesCatalog.m in Sources */,
 				A881854018A9B622002803FC /* CGTATestAppColorList.m in Sources */,
 				AAA0E3BF18EF852F00EB400A /* Country.m in Sources */,
@@ -566,9 +573,10 @@
 		AAA0E3C018EF857200EB400A /* Main.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				AA34C0C61901CFBC001A5584 /* Main 2.xcdatamodel */,
 				AAA0E3C118EF857200EB400A /* Main.xcdatamodel */,
 			);
-			currentVersion = AAA0E3C118EF857200EB400A /* Main.xcdatamodel */;
+			currentVersion = AA34C0C61901CFBC001A5584 /* Main 2.xcdatamodel */;
 			path = Main.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

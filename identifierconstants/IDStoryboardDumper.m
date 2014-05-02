@@ -10,6 +10,8 @@
 #import "IDStoryboardDumper.h"
 
 @interface IDStoryboardDumper ()
+/// Keys: NSString of class name; Values: @(BOOL) stating if it was successfully imported or not
+@property (strong) NSMutableDictionary *classesImported;
 @end
 
 @implementation NSString (IDStoryboardAddition)
@@ -76,6 +78,31 @@
         NSString *defaultClass = [@"UI" stringByAppendingString:[element.name IDS_titlecaseString]];
         return defaultClass;
     }
+}
+
+/// You may call this method multiple times with the same className without it having to search the search path each time. It will only search once and cache the result.
+- (BOOL)importClass:(NSString *)className;
+{
+    if (!self.classesImported) {
+        self.classesImported = [NSMutableDictionary dictionary];
+    }
+    
+    if (self.classesImported[className]) {
+        // if we have arleady tried searching for this class, there is no need to search for it again
+        return [self.classesImported[className] boolValue];
+    }
+    
+    BOOL successfullyImported = NO;
+    if ([self.headerFilesFound containsObject:className]) {
+        [self.interfaceImports addObject:[NSString stringWithFormat:@"\"%@.h\"", className]];
+        successfullyImported = YES;
+    }
+    
+    if (!successfullyImported) {
+        NSLog(@"Unable to find class interface for '%@'. Reverting to global string constant behavior.", className);
+    }
+    self.classesImported[className] = @(successfullyImported);
+    return successfullyImported;
 }
 
 - (void)startWithCompletionHandler:(dispatch_block_t)completionBlock;

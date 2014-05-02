@@ -10,12 +10,33 @@
 
 + (NSString *)inputFileExtension;
 {
+#error TODO: do the following:
+/*
+ # Find the pbxproject file
+ # Look for the currentVersion string everywhere
+ # The files that we should process are those that end with .xcdatamodel
+ # Examine the contents and process those files. We do NOT need to do this in separate threads, since there is only one contents file per xcdatamodel file.
+ 
+    // look for currentVersion = AA34C0C61901CFBC001A5584 /* Main 2.xcdatamodel */;
     return @"xcdatamodel";
 }
 
 - (void)findModelContentURLs;
 {
-    // TODO: only take the latest version
+    // TODO: only take the latest version:
+    /*
+     /* Begin XCVersionGroup section *}
+    AAA0E3C018EF857200EB400A /* Main.xcdatamodeld *} = {
+        isa = XCVersionGroup;
+        children = (
+                    AA34C0C61901CFBC001A5584 /* Main 2.xcdatamodel *},
+                    AAA0E3C118EF857200EB400A /* Main.xcdatamodel *},
+                    );
+        currentVersion = AA34C0C61901CFBC001A5584 /* Main 2.xcdatamodel *};
+        path = Main.xcdatamodeld;
+        sourceTree = "<group>";
+        versionGroupType = wrapper.xcdatamodel;
+    };*/
     NSMutableArray *modelContentsURLs = [NSMutableArray array];
     NSDirectoryEnumerator *enumerator = [[NSFileManager new] enumeratorAtURL:self.inputURL includingPropertiesForKeys:@[NSURLNameKey] options:0 errorHandler:NULL];
     for (NSURL *url in enumerator) {
